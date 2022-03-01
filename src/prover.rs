@@ -1,6 +1,6 @@
 use super::{
     Digest, Felt, FieldElement, PrivKey, ProofOptions, Prover, PublicInputs, Rescue, SemaphoreAir,
-    TraceTable, HASH_CYCLE_LEN, NUM_HASH_ROUNDS, TRACE_WIDTH,
+    TraceTable, HASH_CYCLE_LEN, NUM_HASH_ROUNDS, TRACE_WIDTH, print_trace
 };
 use winterfell::{FieldExtension, HashFunction, Trace};
 
@@ -49,7 +49,7 @@ impl SemaphoreProver {
                 state[11] = Felt::ZERO;
 
                 // -- nullifier section of the trace --
-                state[12] = Felt::new(8);
+                state[12] = Felt::new(8 + 1); // Change the Rescue input for the nullifier
                 state[13] = Felt::ZERO;
                 state[14] = Felt::ZERO;
                 state[15] = Felt::ZERO;
@@ -135,7 +135,7 @@ impl SemaphoreProver {
         // that there are no repeating patterns in the index bit column, and thus the degree
         // of the index bit constraint is stable.
         trace.set(24, 1, FieldElement::ONE);
-
+print_trace(&trace, 1, 0, 0..trace.width());
         trace
     }
 }
