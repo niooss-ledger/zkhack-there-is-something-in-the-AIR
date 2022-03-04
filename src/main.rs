@@ -152,6 +152,11 @@ pub fn forge_signal() -> Signal {
         }
     }
 
+    // Set a bit to one to ensure the constraint degree is not zero, without
+    // actually changing the validity of the execution trace.
+    // Otherwise, running in debug mode fails.
+    trace.set(24, 1, FieldElement::ONE);
+
     // Display the generated trace
     print_trace(&trace, 1, 0, 0..25);
 
