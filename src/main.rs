@@ -1,8 +1,19 @@
 use log::debug;
 use prompt::{puzzle, welcome};
-use semaphore::{AccessSet, PrivKey, PubKey};
+use semaphore::{
+    air::rescue::{apply_inv_mds, ARK1, ARK2},
+    print_trace,
+    prover::{apply_rescue_round, SemaphoreProver},
+    AccessSet, PrivKey, PubKey, Signal,
+};
 use std::{io::Write, time::Instant};
 use winter_utils::Serializable;
+
+use winterfell::{
+    crypto::{hashers::Rp64_256 as Rescue, Hasher, MerkleTree},
+    math::{fields::f64::BaseElement as Felt, FieldElement},
+    Prover, TraceTable,
+};
 
 // DATA
 // ================================================================================================
