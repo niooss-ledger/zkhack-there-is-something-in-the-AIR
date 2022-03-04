@@ -130,15 +130,13 @@ impl AccessSet {
         // the specified topic it produces a given nullifier.
         let prover = SemaphoreProver::default();
         let trace = prover.build_trace(priv_key, key_idx, topic, &key_path);
-
-        // Compute the nullifier from the trace
-        let nullifier_array: [Felt; 4] = [
+        // retrieve the nullifier from the trace
+        let nullifier = Digest::from([
             trace.get(16, 7),
             trace.get(17, 7),
             trace.get(18, 7),
             trace.get(19, 7),
-        ];
-        let nullifier = nullifier_array.into();
+        ]);
         let proof = prover.prove(trace).expect("failed to generate proof");
 
         // return the signal
@@ -294,14 +292,14 @@ impl fmt::Display for PrivKey {
 // ================================================================================================
 
 /// Number of rounds for Rescue Prime hash function; this is equal to 7.
-pub const NUM_HASH_ROUNDS: usize = Rescue::NUM_ROUNDS;
+const NUM_HASH_ROUNDS: usize = Rescue::NUM_ROUNDS;
 
 /// Number of the execution trace rows needed to compute Rescue Prime permutation; this is equal
 /// to 8.
-pub const HASH_CYCLE_LEN: usize = NUM_HASH_ROUNDS.next_power_of_two();
+const HASH_CYCLE_LEN: usize = NUM_HASH_ROUNDS.next_power_of_two();
 
 /// Number of columns in the execution trace.
-pub const TRACE_WIDTH: usize = 25;
+const TRACE_WIDTH: usize = 25;
 
 // UTILITIES
 // ================================================================================================

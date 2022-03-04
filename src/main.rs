@@ -76,7 +76,8 @@ pub fn main() {
     }
     debug!("============================================================");
 
-// nullifier is aac9702c5dbb348dcc1456d236b26ff08a05bedf5278639a1a6719478949c0f1
+    // Modified nullifier is: aac9702c5dbb348dcc1456d236b26ff08a05bedf5278639a1a6719478949c0f1
+
     assert_ne!(
         signal.nullifier.to_bytes(),
         hex::decode("fa9f5e2287b26f5fc91643a65ecfebbf308c6230283cd5c2a6a57ffe8a60e19d").unwrap()
